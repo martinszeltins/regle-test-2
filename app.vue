@@ -56,6 +56,14 @@
 
                 email = 'test'
             </button>
+
+            <button
+                @click="touchSkillName"
+                type="button"
+                class="shadow mt-4 bg-gray-200 px-5 py-2 rounded hover:bg-gray-300 hover:active:bg-gray-400 ml-4">
+
+                touch skills[0].skillName
+            </button>
         </form>
     </div>
 </template>
@@ -108,5 +116,9 @@
         const result = await validateForm()
 
         console.log(result)
+    }
+
+    const touchSkillName = () => {
+        regle.$fields.skills.$each[0].$fields.skillName.$touch()
     }
 </script>
