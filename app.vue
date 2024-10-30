@@ -2,6 +2,10 @@
     <div class="p-5 space-y-5 origin-top-left">
         <h1 class="text-xl font-semibold">My Form</h1>
 
+        <div>
+            <pre>isSkillNameRequired: {{ isSkillNameRequired }}</pre>
+        </div>
+
         <!-- Dump "form" -->
         <div style="border: 1px solid gray; position: fixed; right: 750px; top: 20px; max-height: calc(100vh - 100px); width: 300px; font-size: 11px; overflow:auto;padding: 10px;background: #f8f8f8;border-radius: 4px;font-family: monospace;"><pre><b>form:</b> {{ form }}</pre></div>
 
@@ -64,6 +68,14 @@
 
                 touch skills[0].skillName
             </button>
+
+            <button
+                @click="isSkillNameRequired = !isSkillNameRequired"
+                type="button"
+                class="shadow mt-4 bg-gray-200 px-5 py-2 rounded hover:bg-gray-300 hover:active:bg-gray-400 ml-4">
+
+                isSkillNameRequired = !isSkillNameRequired
+            </button>
         </form>
     </div>
 </template>
@@ -83,6 +95,8 @@
         skills: Skill[]
     }
 
+    const isSkillNameRequired = ref(false)
+
     const form = ref<Form>({
         name: '',
         email: '',
@@ -95,14 +109,14 @@
         },
 
         email: {
-            email,
-            required,
+            email: isSkillNameRequired.value ? email : undefined,
+            required: isSkillNameRequired.value ? required : undefined,
         },
 
         skills: {
             $each: {
                 skillName: {
-                    required,
+                    required: isSkillNameRequired.value ? required : undefined,
                 },
 
                 level: {
